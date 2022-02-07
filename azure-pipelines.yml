@@ -33,13 +33,13 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: AzureRmWebAppDeployment@4
+- task: AzureWebApp@1
   inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure subscription 1(2)(971cfad8-0a53-4c55-b220-8033b4a58a2d)'
-        appType: 'webApp'
-        WebAppName: 'another-test-web-app'
-        deployToSlotOrASE: true
-        ResourceGroupName: 'test-sandbox'
-        SlotName: 'shadow'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    azureSubscription: 'Azure subscription 1(1)(971cfad8-0a53-4c55-b220-8033b4a58a2d)'
+    appType: 'webApp'
+    appName: 'another-test-web-app'
+    deployToSlotOrASE: true
+    resourceGroupName: 'test-sandbox'
+    slotName: 'shadow'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
