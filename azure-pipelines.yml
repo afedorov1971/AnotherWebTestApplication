@@ -24,17 +24,13 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(System.DefaultWorkingDirectory)"'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     
-- task: AzureWebApp@1
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
   inputs:
-    azureSubscription: 'Azure subscription 1(1)(971cfad8-0a53-4c55-b220-8033b4a58a2d)'
-    appType: 'webApp'
-    appName: 'another-test-web-app'
-    deployToSlotOrASE: true
-    resourceGroupName: 'test-sandbox'
-    slotName: 'shadow'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    deploymentMethod: 'auto'
+    PathtoPublish: $(build.artifactstagingdirectory)
+    ArtifactName: 'PublishBuildArtifacts'
+    
